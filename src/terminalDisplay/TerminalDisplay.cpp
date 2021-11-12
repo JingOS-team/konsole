@@ -1,6 +1,8 @@
 /*
     SPDX-FileCopyrightText: 2006-2008 Robert Knight <robertknight@gmail.com>
     SPDX-FileCopyrightText: 1997, 1998 Lars Doelle <lars.doelle@on-line.de>
+                            2021 Rui Wang <wangrui@jingos.com>
+                            2021 Lele Huan <huanlele@jingos.com>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -424,6 +426,9 @@ TerminalDisplay::TerminalDisplay(QWidget* parent)
     // so the layout is forced to Left-To-Right
     setLayoutDirection(Qt::LeftToRight);
 
+
+    QFont font = getVTFont();;
+
     _contentRect = QRect(_margin, _margin, 1, 1);
 
     // create scroll bar for scrolling output up and down
@@ -472,7 +477,7 @@ TerminalDisplay::TerminalDisplay(QWidget* parent)
     _verticalLayout->setSpacing(0);
     _verticalLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(_verticalLayout);
-    new AutoScrollHandler(this);
+    //new AutoScrollHandler(this);
 
     // Keep this last
     CompositeWidgetFocusWatcher *focusWatcher = new CompositeWidgetFocusWatcher(this);
@@ -526,10 +531,16 @@ TerminalDisplay::~TerminalDisplay()
 
     _readOnlyMessageWidget = nullptr;
     _outputSuspendedMessageWidget = nullptr;
+    _image = nullptr;
+    _filterChain = nullptr;
 
     delete _terminalPainter;
     delete _terminalColor;
     delete _printManager;
+
+    _terminalPainter = nullptr;
+    _terminalColor = nullptr;
+    _printManager = nullptr;
 }
 
 void TerminalDisplay::setupHeaderVisibility()
@@ -1300,6 +1311,7 @@ void TerminalDisplay::setCenterContents(bool enable)
 /*                                  Mouse                                    */
 /*                                                                           */
 /* ------------------------------------------------------------------------- */
+
 void TerminalDisplay::mousePressEvent(QMouseEvent* ev)
 {
     if (_possibleTripleClick && (ev->button() == Qt::LeftButton)) {
@@ -1336,15 +1348,25 @@ void TerminalDisplay::mousePressEvent(QMouseEvent* ev)
     _filterChain->mouseMoveEvent(this, ev, charLine, charColumn);
 
     if (ev->button() == Qt::LeftButton) {
-        // request the software keyboard, if any
-        if (qApp->autoSipEnabled()) {
-            auto behavior = QStyle::RequestSoftwareInputPanel(
-                        style()->styleHint(QStyle::SH_RequestSoftwareInputPanel));
-            if (hasFocus() || behavior == QStyle::RSIP_OnMouseClick) {
-                QEvent event(QEvent::RequestSoftwareInputPanel);
-                QApplication::sendEvent(this, &event);
-            }
+
+        if(!ev->modifiers()){
+            m_nPressedPos = ev->globalPos();
+            m_nLastPos = m_nPressedPos;
+            m_nLeftHeight = 0;
+            m_nPressed = true;
+            m_nTimerId = startTimer(200);
         }
+
+
+        // request the software keyboard, if any
+//        if (qApp->autoSipEnabled()) {
+//            auto behavior = QStyle::RequestSoftwareInputPanel(
+//                        style()->styleHint(QStyle::SH_RequestSoftwareInputPanel));
+//            if (hasFocus() || behavior == QStyle::RSIP_OnMouseClick) {
+//                QEvent event(QEvent::RequestSoftwareInputPanel);
+//                QApplication::sendEvent(this, &event);
+//            }
+//        }
 
         if (!ev->modifiers()) {
             _lineSelectionMode = false;
@@ -1407,9 +1429,78 @@ QSharedPointer<HotSpot> TerminalDisplay::filterActions(const QPoint& position)
 
 void TerminalDisplay::mouseMoveEvent(QMouseEvent* ev)
 {
+
+        //add by huan lele
+        if (ev->buttons() == Qt::LeftButton && !ev->modifiers() && m_nPressed == true) {
+            if(m_nPressAndHold == false){
+                QPoint pos = ev->globalPos();
+                //此时处于长按定时器内，但是活动范围过大，取消长按事件
+                if(m_nTimerId > 0) {
+                    int x = pos.x() - m_nPressedPos.x();
+                    int y = pos.y() - m_nPressedPos.y();
+                    if(qAbs(y) >= _fontHeight || qAbs(x) >= _fontHeight){
+                        killTimer(m_nTimerId);
+                        m_nTimerId = 0;
+                    }
+                }
+                //qDebug() << "mouse move event " << ev << ev->source();
+                if(ev->localPos().y() < 0){
+                    return;
+                }
+
+
+
+                int y = (pos.y() + m_nLeftHeight) - m_nLastPos.y();
+                int col = y / _fontHeight;
+                int left = y % _fontHeight;
+
+                if(!_usesMouseTracking && (_scrollBar->maximum() > 0)){
+                        if(col != 0){
+                            col = _scrollBar->invertedControls() ? -col : col;
+                            int value = _scrollBar->value();
+                            value += col;
+                            _scrollBar->setValue(value);
+                        }
+                } else if (!_readOnly) {
+
+                        Q_ASSERT(!_sessionController->session().isNull());
+
+                        if(!_usesMouseTracking && !_sessionController->session()->isPrimaryScreen() && _scrollBar->alternateScrolling()) {
+                            // Send simulated up / down key presses to the terminal program
+                            // for the benefit of programs such as 'less' (which use the alternate screen)
+
+                            // assume that each Up / Down key event will cause the terminal application
+                            // to scroll by one line.
+                            //
+                            // to get a reasonable scrolling speed, scroll by one line for every 5 degrees
+                            // of mouse wheel rotation.  Mouse wheels typically move in steps of 15 degrees,
+                            // giving a scroll of 3 lines
+
+                            const int keyCode = col > 0 ? Qt::Key_Up : Qt::Key_Down;
+
+                            QKeyEvent keyEvent(QEvent::KeyPress, keyCode, Qt::NoModifier);
+                            qDebug() << "mouse move set press signale " << col;
+                            for (int i = 0; i < abs(col); i++) {
+                                _screenWindow->screen()->setCurrentTerminalDisplay(this);
+                                emit keyPressedSignal(&keyEvent);
+                            }
+                        }
+                    }
+                m_nLastPos = pos;
+                m_nLeftHeight  = left;
+
+                return;
+            }
+        }
+
+        //end by huan lele
+
+
+
     if (!hasFocus() && KonsoleSettings::focusFollowsMouse()) {
        setFocus();
     }
+
 
     auto [charLine, charColumn] = getCharacterPosition(ev->pos(), !_usesMouseTracking);
 
@@ -1644,6 +1735,42 @@ void TerminalDisplay::extendSelection(const QPoint& position)
 
 void TerminalDisplay::mouseReleaseEvent(QMouseEvent* ev)
 {
+
+    //add by huan lele
+        if(m_nTimerId > 0){
+            killTimer(m_nTimerId);
+            m_nTimerId = 0;
+        }
+
+        m_nPressed = false;
+
+        //qDebug() << Q_FUNC_INFO << " m_nPressAndHold is " << m_nPressAndHold;
+        if(m_nPressAndHold == false){
+            QPoint pos = ev->globalPos();
+            int x = pos.x() - m_nPressedPos.x();
+            int y = pos.y() - m_nPressedPos.y();
+            if(qAbs(y) < _fontHeight && qAbs(x) < _fontHeight){
+                if (qApp->autoSipEnabled()) {
+
+                    auto behavior = QStyle::RequestSoftwareInputPanel(
+                                style()->styleHint(QStyle::SH_RequestSoftwareInputPanel));
+                    if (hasFocus() || behavior == QStyle::RSIP_OnMouseClick) {
+                        qDebug() << "mouse release input panel";
+                        QEvent event(QEvent::RequestSoftwareInputPanel);
+                        QApplication::sendEvent(this, &event);
+                    }
+                }
+            }
+
+            return;
+        }
+
+        m_nPressAndHold = false;
+
+        //qDebug() << Q_FUNC_INFO << ev;
+        //end by huan lele
+
+
     if (_screenWindow.isNull()) {
         return;
     }
@@ -1686,6 +1813,15 @@ void TerminalDisplay::mouseReleaseEvent(QMouseEvent* ev)
     if (!_screenWindow->screen()->hasSelection()) {
         _filterChain->mouseReleaseEvent(this, ev, charLine, charColumn);
     }
+}
+
+void TerminalDisplay::timerEvent(QTimerEvent *event)
+{
+    if(m_nTimerId == event->timerId()){
+        m_nPressAndHold = true;
+        killTimer(m_nTimerId);
+    }
+    m_nTimerId = 0;
 }
 
 QPair<int, int> TerminalDisplay::getCharacterPosition(const QPoint& widgetPoint, bool edge) const

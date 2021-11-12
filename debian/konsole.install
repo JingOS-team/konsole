@@ -1,0 +1,10 @@
+usr/share/qlogging-categories5/konsole.categories
+usr/bin/konsole
+usr/bin/konsoleprofile
+usr/lib/*/libkdeinit5_konsole.so
+usr/share/applications/org.kde.konsole.desktop
+usr/share/doc/HTML/*/konsole/
+usr/share/khotkeys/konsole.khotkeys
+usr/share/kservices5/ServiceMenus/konsolerun.desktop
+usr/share/metainfo/org.kde.konsole.appdata.xml
+usr/share/icons/hicolor

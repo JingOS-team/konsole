@@ -2,7 +2,7 @@
 Type=Application
 TryExec=konsole
 Exec=konsole
-Icon=utilities-terminal
+Icon=Terminal
 Terminal=false
 Categories=Qt;KDE;System;TerminalEmulator;
 Actions=NewWindow;NewTab;
@@ -103,7 +103,7 @@ Name[vi]=Konsole
 Name[wa]=Konsole
 Name[xh]=Konsole
 Name[x-test]=xxKonsolexx
-Name[zh_CN]=Konsole
+Name[zh_CN]=终端
 Name[zh_TW]=Konsole
 
 GenericName=Terminal

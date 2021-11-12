@@ -57,7 +57,7 @@ Name[sv]=Kör i Terminal
 Name[tr]=Konsole'da Çalıştır
 Name[uk]=Запустити у Konsole
 Name[x-test]=xxRun In Konsolexx
-Name[zh_CN]=在 Konsole 中运行
+Name[zh_CN]=在 终端 中运行
 Name[zh_TW]=在 Konsole 中執行
 
 Comment=Run within Konsole
@@ -102,5 +102,5 @@ Comment[sv]=Kör i Terminal
 Comment[tr]=Konsol İçinde Çalıştır
 Comment[uk]=Запустити у Konsole
 Comment[x-test]=xxRun within Konsolexx
-Comment[zh_CN]=在 Konsole 中运行
+Comment[zh_CN]=在 终端 中运行
 Comment[zh_TW]=在 Konsole 中執行

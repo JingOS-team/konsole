@@ -1,5 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2006-2008 Robert Knight <robertknight@gmail.com>
+                            2021 Lele Huan <huanlele@jingos.com>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -14,7 +15,7 @@
 #include <QToolButton>
 #include <QMenu>
 #include <QApplication>
-
+#include <QResizeEvent>
 // KDE
 #include <KColorScheme>
 #include <QLineEdit>
@@ -148,6 +149,26 @@ IncrementalSearchBar::IncrementalSearchBar(QWidget *parent) :
     updateButtonsAccordingToReverseSearchSetting();
     setOptions();
 
+    int unit = metrics.height();
+    _findNextButton->setFixedSize(unit - 4, unit - 4);
+    _findNextButton->setIconSize(QSize(unit - 16, unit - 16));
+
+    _findPreviousButton->setFixedSize(unit - 4, unit - 4);
+    _findPreviousButton->setIconSize(QSize(unit - 16, unit - 16));
+
+    _searchFromButton->setFixedSize(unit - 4, unit - 4);
+    _searchFromButton->setIconSize(QSize(unit - 16, unit - 16));
+
+    _searchFromButton->setFixedSize(unit - 4, unit - 4);
+    _searchFromButton->setIconSize(QSize(unit - 16, unit - 16));
+
+    optionsButton->setFixedSize(unit - 4, unit - 4);
+    optionsButton->setIconSize(QSize(unit - 16, unit - 16));
+
+    closeButton->setFixedSize(unit - 4, unit - 4);
+    closeButton->setIconSize(QSize(unit - 16, unit - 16));
+
+
     auto barLayout = new QHBoxLayout(this);
     barLayout->addWidget(_searchEdit);
     barLayout->addWidget(_findNextButton);
@@ -175,6 +196,7 @@ void IncrementalSearchBar::updateButtonsAccordingToReverseSearchSetting()
         _searchFromButton->setToolTip(i18nc("@info:tooltip",
                                             "Search for the current search phrase from the bottom"));
         _searchFromButton->setIcon(QIcon::fromTheme(QStringLiteral("go-bottom")));
+
         _findNextButton->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
         _findPreviousButton->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
     } else {

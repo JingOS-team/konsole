@@ -12,7 +12,6 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QStatusBar>
-
 // KDE
 #include <KAcceleratorManager>
 #include <KActionCollection>

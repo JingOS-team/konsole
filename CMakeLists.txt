@@ -86,7 +86,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} )
 
-file(GLOB ICONS_SRCS "data/icons/*.png")
+file(GLOB ICONS_SRCS "data/icons/*.svg")
 
 add_subdirectory( src )
 add_subdirectory( data )
@@ -98,11 +98,12 @@ endif()
 add_subdirectory( tools )
 
 # Conditionally install icons for Linux as they may not be provided by the user theme
-option(INSTALL_ICONS "Install icons" OFF)
+option(INSTALL_ICONS "Install icons" ON)
 if (INSTALL_ICONS)
     include(ECMInstallIcons)
     ecm_install_icons( ICONS ${ICONS_SRCS} DESTINATION ${KDE_INSTALL_ICONDIR} )
 endif()
+install(FILES data/icons/Terminal.svg DESTINATION ${KDE_INSTALL_FULL_ICONDIR}/hicolor/scalable/apps)
 
 
 if (${ECM_VERSION} STRGREATER "5.58.0")

@@ -15,7 +15,7 @@
 #include <QCommandLineParser>
 #include <QStandardPaths>
 #include <QTimer>
-
+#include <QDebug>
 // KDE
 #include <KActionCollection>
 #include <KGlobalAccel>
@@ -165,6 +165,7 @@ MainWindow *Application::newMainWindow()
 
 void Application::createWindow(const Profile::Ptr &profile, const QString &directory)
 {
+    qDebug() << Q_FUNC_INFO << " profile " << profile << "  directory is " << directory;
     MainWindow *window = newMainWindow();
     window->createSession(profile, directory);
     window->show();
@@ -201,9 +202,12 @@ int Application::newInstance()
         return 0;
     }
 
+
+    qDebug() << Q_FUNC_INFO;
     // create a new window or use an existing one
     MainWindow *window = processWindowArgs(createdNewMainWindow);
 
+    qDebug() << Q_FUNC_INFO << " window is " << window;
     if (m_parser->isSet(QStringLiteral("tabs-from-file"))) {
         // create new session(s) as described in file
         if (!processTabsFromFileArgs(window)) {
@@ -246,6 +250,7 @@ int Application::newInstance()
         // If not restoring size from last time or only adding new tab,
         // resize window to chosen profile size (see Bug:345403)
         if (createdNewMainWindow) {
+            qDebug() << Q_FUNC_INFO << "show window ";
             QTimer::singleShot(0, window, &MainWindow::show);
         } else {
             window->setWindowState(window->windowState() & (~Qt::WindowMinimized | Qt::WindowActive));
@@ -411,10 +416,12 @@ MainWindow *Application::processWindowArgs(bool &createdNewMainWindow)
                 break;
             }
         }
+        qDebug() << Q_FUNC_INFO << " new - tab ";
     }
 
     if (window == nullptr) {
         createdNewMainWindow = true;
+        qDebug() << Q_FUNC_INFO << "new main window";
         window = newMainWindow();
 
         // override default menubar visibility

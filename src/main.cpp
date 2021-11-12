@@ -1,5 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2006-2008 Robert Knight <robertknight@gmail.com>
+                            2021 Lele Huan <huanlele@jingos.com>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -130,6 +131,10 @@ extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[])
 
     app->setWindowIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
 
+    QFont font = app->font();
+    //font.setPixelSize(font.pixelSize() + 20);
+    font.setPointSize(font.pointSize() + 10);
+    app->setFont(font);
     KLocalizedString::setApplicationDomain("konsole");
 
     KAboutData about(QStringLiteral("konsole"),
@@ -206,6 +211,7 @@ extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[])
     // If we reach this location, there was no existing copy of Konsole
     // running, so create a new instance.
     Application konsoleApp(parser, customCommand);
+
 
     // The activateRequested() signal is emitted when a second instance
     // of Konsole is started.

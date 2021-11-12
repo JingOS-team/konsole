@@ -143,6 +143,7 @@ private:
     QToolButton *_findNextButton;
     QToolButton *_findPreviousButton;
     QToolButton *_searchFromButton;
+
     QTimer *_searchTimer;
 };
 }

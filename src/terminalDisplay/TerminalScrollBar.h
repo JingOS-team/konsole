@@ -2,6 +2,7 @@
     SPDX-FileCopyrightText: 2020-2020 Gustavo Carneiro <gcarneiroa@hotmail.com>
     SPDX-FileCopyrightText: 2007-2008 Robert Knight <robertknight@gmail.com>
     SPDX-FileCopyrightText: 1997, 1998 Lars Doelle <lars.doelle@on-line.de>
+                            2021 Lele Huan <huanlele@jingos.com>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -74,18 +75,19 @@ namespace Konsole
         {
             return _scrollbarLocation;
         }
+
+        QSize sizeHint() const;
     public Q_SLOTS:
 
         void scrollBarPositionChanged(int value);
         void highlightScrolledLinesEvent();
-    
     private:
         TerminalDisplay *_display;
         bool _scrollFullPage;
         bool _alternateScrolling;
         Enum::ScrollBarPositionEnum _scrollbarLocation;
+        bool m_nHovered = false;
     };
-
 }
 
 #endif

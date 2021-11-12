@@ -1,0 +1,209 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: konsole
+Source: git://anongit.kde.org/konsole
+
+Files: *
+Copyright: 2012, Frederik Gladhorn <gladhorn@kde.org>
+           1989-1991, Free Software Foundation, Inc
+           2012, Jekyll Wu <adaptee@gmail.com>
+           2010-2014, Kurt Hindenburg <kurt.hindenburg@gmail.com>
+           1997-1998, Lars Doelle <lars.doelle@on-line.de>
+           2005, Maksim Orlovich <maksim@kde.org>
+           1996, Matthias Ettrich <ettrich@kde.org>
+           2007-2008, Robert Knight <robert.knight@gmail.com>
+           2006-2008, Robert Knight <robertknight@gmail.com>
+           2007-2008, Robert Knight <robertknight@gmail.countm>
+           2009, Thomas Dreibholz <dreibh@iem.uni-due.de>
+License: GPL-2+
+
+Files: src/PrintOptions.cpp
+       src/PrintOptions.h
+       src/WindowSystemInfo.cpp
+       src/WindowSystemInfo.h
+       src/settings/GeneralSettings.cpp
+       src/settings/GeneralSettings.h
+       src/settings/TabBarSettings.cpp
+       src/settings/TabBarSettings.h
+Copyright: 2012, Jekyll Wu <adaptee@gmail.com>
+           2012, Kasper Laudrup <laudrup@stacktrace.dk>
+           2011, Kurt Hindenburg <kurt.hindenburg@gmail.com>
+License: GPL-2+3+KDEeV
+
+Files: COPYING.LIB
+       src/BookmarkHandler.cpp
+       src/BookmarkHandler.h
+       src/TerminalCharacterDecoder.cpp
+       src/TerminalCharacterDecoder.h
+Copyright: 2002, Carsten Pfeiffer <pfeiffer@kde.org>
+           1991, Free Software Foundation, Inc
+           2006-2008, Robert Knight <robertknight@gmail.com>
+License: LGPL-2+
+
+Files: src/konsoleprofile
+       tests/audit.c
+       tests/quote.c
+       tests/signaltests.c
+Copyright: no copyright claimed
+License: public-domain
+ No copyright claimed by author.
+
+Files: src/ZModemDialog.cpp
+       src/ZModemDialog.h
+Copyright: 2002, Waldo Bastian <bastian@kde.org>
+License: LGPL-2
+
+Files: COPYING.DOC
+       doc/*
+Copyright: 2000-2002, Free Software Foundation, Inc
+           2000-2001, Jonathan Singer
+           2005-2014, Kurt Hindenburg
+License: GFDL-1.2
+
+Files: COPYING.Unicode
+       src/konsole_wcwidth.cpp
+       src/konsole_wcwidth.h
+Copyright: 1991-2012, Unicode, Inc
+License: Unicode
+ EXHIBIT 1
+ UNICODE, INC. LICENSE AGREEMENT - DATA FILES AND SOFTWARE
+ .
+     Unicode Data Files include all data files under the directories
+     http://www.unicode.org/Public/, http://www.unicode.org/reports/,
+     and http://www.unicode.org/cldr/data/. Unicode Data Files do not
+     include PDF online code charts under the directory
+     http://www.unicode.org/Public/. Software includes any source code
+     published in the Unicode Standard or under the directories
+     http://www.unicode.org/Public/, http://www.unicode.org/reports/,
+     and http://www.unicode.org/cldr/data/.
+ .
+     NOTICE TO USER: Carefully read the following legal agreement. BY
+     DOWNLOADING, INSTALLING, COPYING OR OTHERWISE USING UNICODE INC.'S
+     DATA FILES ("DATA FILES"), AND/OR SOFTWARE ("SOFTWARE"), YOU
+     UNEQUIVOCALLY ACCEPT, AND AGREE TO BE BOUND BY, ALL OF THE TERMS
+     AND CONDITIONS OF THIS AGREEMENT. IF YOU DO NOT AGREE, DO NOT
+     DOWNLOAD, INSTALL, COPY, DISTRIBUTE OR USE THE DATA FILES OR
+     SOFTWARE.
+ .
+     COPYRIGHT AND PERMISSION NOTICE
+ .
+     Copyright © 1991-2012 Unicode, Inc. All rights
+     reserved. Distributed under the Terms of Use in
+     http://www.unicode.org/copyright.html.
+ .
+     Permission is hereby granted, free of charge, to any person
+     obtaining a copy of the Unicode data files and any associated
+     documentation (the "Data Files") or Unicode software and any
+     associated documentation (the "Software") to deal in the Data
+     Files or Software without restriction, including without
+     limitation the rights to use, copy, modify, merge, publish,
+     distribute, and/or sell copies of the Data Files or Software, and
+     to permit persons to whom the Data Files or Software are furnished
+     to do so, provided that (a) the above copyright notice(s) and this
+     permission notice appear with all copies of the Data Files or
+     Software, (b) both the above copyright notice(s) and this
+     permission notice appear in associated documentation, and (c)
+     there is clear notice in each modified Data File or in the
+     Software as well as in the documentation associated with the Data
+     File(s) or Software that the data or software has been modified.
+ .
+     THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY
+     OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+     WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+     AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN NO EVENT SHALL THE
+     COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS NOTICE BE LIABLE FOR
+     ANY CLAIM, OR ANY SPECIAL INDIRECT OR CONSEQUENTIAL DAMAGES, OR
+     ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR
+     PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+     TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+     PERFORMANCE OF THE DATA FILES OR SOFTWARE.
+ .
+     Except as contained in this notice, the name of a copyright holder
+     shall not be used in advertising or otherwise to promote the sale,
+     use or other dealings in these Data Files or Software without
+     prior written authorization of the copyright holder.
+ .
+     Unicode and the Unicode logo are trademarks of Unicode, Inc. in
+     the United States and other countries. All third party trademarks
+     referenced herein are the property of their respective owners.
+
+Files: debian/*
+Copyright: 2007-2010, Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+           2011, Kubuntu Developers <kubuntu-devel@lists.ubuntu.com>
+License: GPL-2+
+
+License: GFDL-1.2
+ Permission is granted to copy, distribute and/or modify this document
+ under the terms of the GNU Free Documentation License, Version 1.2
+ or any later version published by the Free Software Foundation;
+ with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ A copy of the license is included in the section entitled "GNU
+ Free Documentation License".
+ .
+ On Debian systems, the complete text of the GNU Free Documentation License
+ version 1.2 can be found in `/usr/share/common-licenses/GFDL-1.2'.
+
+License: GPL-2+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+
+License: GPL-2+3+KDEeV
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of
+ the License or (at your option) version 3 or any later version
+ accepted by the membership of KDE e.V. (or its successor appro-
+ ved by the membership of KDE e.V.), which shall act as a proxy
+ defined in Section 14 of version 3 of the license.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see http://www.gnu.org/licenses/.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 2 can be found in `/usr/share/common-licenses/GPL-2', likewise, the
+ complete text of the GNU General Public License version 3 can be found in
+ `/usr/share/common-licenses/GPL-3'.
+
+License: LGPL-2
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Library General Public
+ License version 2 as published by the Free Software Foundation;
+ .
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Library General Public License for more details.
+ .
+ You should have received a copy of the GNU Library General Public License
+ along with this library; see the file COPYING.LIB.  If not, write to
+ the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ Boston, MA 02110-1301, USA.
+ --
+ On Debian systems, the complete text of the GNU Library General Public License
+ version 2 can be found in `/usr/share/common-licenses/LGPL-2'.
+
+License: LGPL-2+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Library General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+ .
+ On Debian systems, the complete text of the GNU Library General Public License
+ version 2 can be found in `/usr/share/common-licenses/LGPL-2'.

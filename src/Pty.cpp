@@ -1,5 +1,6 @@
 /*
     SPDX-FileCopyrightText: 1997, 1998 Lars Doelle <lars.doelle@on-line.de>
+                            2021 Rui Wang <wangrui@jingos.com>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -16,6 +17,7 @@
 // Qt
 #include <QStringList>
 #include <qplatformdefs.h>
+#include <QString>
 
 // KDE
 #include <KPtyDevice>
@@ -243,8 +245,16 @@ int Pty::start(const QString &programName, const QStringList &programArguments,
     // does not have a translation for
     //
     // BR:149300
-    setEnv(QStringLiteral("LANGUAGE"), QString(),
+
+    QString envStr = QString::fromLocal8Bit(qgetenv("LANGUAGE"));
+    QStringList envStrList = envStr.split(QStringLiteral(":"));
+
+    if(envStrList.size() > 0 && envStr.startsWith(QStringLiteral("en_"))) {
+       setEnv(QStringLiteral("LANGUAGE"), envStrList.at(0), true);
+    } else {
+       setEnv(QStringLiteral("LANGUAGE"), QString(),
            false /* do not overwrite existing value if any */);
+    }
 
     KProcess::start();
 

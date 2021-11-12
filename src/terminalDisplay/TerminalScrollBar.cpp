@@ -2,6 +2,7 @@
     SPDX-FileCopyrightText: 2020-2020 Gustavo Carneiro <gcarneiroa@hotmail.com>
     SPDX-FileCopyrightText: 2007-2008 Robert Knight <robertknight@gmail.com>
     SPDX-FileCopyrightText: 1997, 1998 Lars Doelle <lars.doelle@on-line.de>
+                            2021 Lele Huan <huanlele@jingos.com>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -21,6 +22,7 @@
 #include <QRect>
 #include <QTimer>
 #include <QLabel>
+#include <QDebug>
 
 namespace Konsole
 {
@@ -31,6 +33,15 @@ namespace Konsole
         , _alternateScrolling(false)
         , _scrollbarLocation(Enum::ScrollBarRight)
     {
+        setStyleSheet( QString(QStringLiteral("QScrollBar:vertical{background-color:transparent;height:255px;padding-top:0px;padding-bottom:0px;border-radius: 15px;}"
+                      "QScrollBar:vertical:hover{background-color:#333333;}"
+                        "QScrollBar::handle:vertical{background:#666666;border-radius: 15px;}"
+                        "QScrollBar::sub-line:vertical{height:0px;width:0px;}"
+                        "QScrollBar::add-line:vertical{height:0px;width:0px;}"
+                      )));
+//        setStyleSheet( QString(QStringLiteral("QScrollBar:vertical{border-radius: 20px;}"
+//                                "border-radius: 20px;}"
+//                              )));
         connect(this, &QScrollBar::valueChanged, this, &TerminalScrollBar::scrollBarPositionChanged);
     }
 
@@ -51,6 +62,8 @@ namespace Konsole
         //
         // setting the range or value of a _scrollBar will always trigger
         // a repaint, so it should be avoided if it is not necessary
+
+        //qDebug() << Q_FUNC_INFO << " cursor " << cursor << " slines " << slines << " _display->_lines " << _display->_lines;
         if (this->minimum() == 0                 &&
                 this->maximum() == (slines - _display->_lines) &&
                 this->value()   == cursor) {
@@ -120,6 +133,7 @@ namespace Konsole
     {
         _display->update(_display->_highlightScrolledLinesControl.rect);
     }
+
     
     void TerminalScrollBar::applyScrollBarPosition(bool propagate) 
     {
@@ -236,5 +250,15 @@ namespace Konsole
 
         // scroll the display vertically to match internal _image
         _display->scroll(0, _display->_fontHeight * (-lines), scrollRect);
+    }
+
+    QSize TerminalScrollBar::sizeHint() const
+    {
+        return QSize(30, 200);
+//        if(m_nHovered){
+//            return QSize(40, 200);
+//        } else {
+//            return QSize(10, 200);
+//        }
     }
 }

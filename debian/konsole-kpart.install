@@ -1,0 +1,7 @@
+usr/share/knsrcfiles/konsole.knsrc
+usr/lib/*/libkonsoleprivate.so.*
+usr/lib/*/qt5/plugins/konsolepart.so
+usr/share/knotifications5/
+usr/share/konsole/
+usr/share/kservices5/konsolepart.desktop
+usr/share/kservicetypes5/terminalemulator.desktop

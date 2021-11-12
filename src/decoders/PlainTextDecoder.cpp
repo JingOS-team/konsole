@@ -1,5 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2006-2008 Robert Knight <robertknight@gmail.com>
+                            2021 Rui Wang <wangrui@jingos.com>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -61,6 +62,9 @@ QList<int> PlainTextDecoder::linePositions() const
 void PlainTextDecoder::decodeLine(const Character* const characters, int count, LineProperty /*properties*/)
 {
     Q_ASSERT(_output);
+
+    if(characters == nullptr)
+        return;
 
     if (_recordLinePositions && (_output->string() != nullptr)) {
         int pos = _output->string()->count();

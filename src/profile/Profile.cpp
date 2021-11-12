@@ -2,6 +2,7 @@
     This source file is part of Konsole, a terminal emulator.
 
     SPDX-FileCopyrightText: 2006-2008 Robert Knight <robertknight@gmail.com>
+                            2021 Rui Wang <wangrui@jingos.com>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -179,7 +180,11 @@ void Profile::useFallback()
 
     setProperty(KeyBindings, QStringLiteral("default"));
     setProperty(ColorScheme, QStringLiteral("Breeze"));
-    setProperty(Font, QFontDatabase::systemFont(QFontDatabase::FixedFont));
+
+    QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    font.setPointSize(font.pointSize() + 5);
+    setProperty(Font, font);
+    // setProperty(Font, QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
     setProperty(HistoryMode, Enum::FixedSizeHistory);
     setProperty(HistorySize, 1000);

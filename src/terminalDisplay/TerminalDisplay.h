@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2007-2008 Robert Knight <robertknight@gmail.com>
     SPDX-FileCopyrightText: 1997, 1998 Lars Doelle <lars.doelle@on-line.de>
+                            2021 Lele Huan <huanlele@jingos.com>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -58,6 +59,7 @@ class Profile;
  *
  * TODO More documentation
  */
+
 class KONSOLEPRIVATE_EXPORT TerminalDisplay : public QWidget
 {
     Q_OBJECT
@@ -617,6 +619,7 @@ protected:
     void inputMethodEvent(QInputMethodEvent *event) override;
     QVariant inputMethodQuery(Qt::InputMethodQuery query) const override;
 
+    void timerEvent(QTimerEvent *event);
 protected Q_SLOTS:
 
     void blinkTextEvent();
@@ -822,6 +825,15 @@ private:
     TerminalColor *_terminalColor;
 
     KonsolePrintManager *_printManager;
+
+    QPoint  m_nPressedPos;
+    QPoint  m_nLastPos;
+    int     m_nLeftHeight = 0;
+
+    int m_nTimerId = 0;
+    bool m_nPressAndHold = false;
+    bool m_nHoldInit = false;
+    bool m_nPressed = false;
 };
 
 }

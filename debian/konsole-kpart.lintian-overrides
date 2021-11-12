@@ -1,0 +1,4 @@
+# private library
+konsole-kpart: package-name-doesnt-match-sonames libkonsoleprivate*
+# private library
+konsole-kpart: no-symbols-control-file usr/lib/*/libkonsoleprivate.so.*
